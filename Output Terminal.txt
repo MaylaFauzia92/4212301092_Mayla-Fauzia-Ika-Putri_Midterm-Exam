@@ -1,0 +1,62 @@
+PS C:\Users\ABC\Downloads\archive (4)> & C:/Users/ABC/anaconda3/python.exe "c:/Users/ABC/Downloads/archive (4)/main.py"
+--- Load Dataset ---
+CSV file loaded successfully.
+Image orientation fixed.
+
+--- Data Sampling ---
+Taking 500 samples per class...
+Sampling complete. Total data for this experiment : 13000 samples.
+
+--- HOG Feature Extraction ---
+Processing images for HOG feature extraction...
+HOG extraction finished in 4.23 seconds.
+HOG feature dataset shape : (13000, 144)
+
+--- Model Evaluation with LOOCV ---
+SVM model prepared with kernel ='linear' and C =1.0
+Validation method: Leave-One-Out (will run 13000 iterations).
+
+===============================================================
+STARTING LOOCV EVALUATION.....)
+
+LOOCV evaluation finished in 414.29 minutes.
+
+--- Display Performance Results ---
+Accuracy: 82.4462%
+
+Classification Report (Precision, Recall, F1-Score):
+              precision    recall  f1-score   support
+
+           A     0.6812    0.7520    0.7148       500
+           B     0.8012    0.7980    0.7996       500
+           C     0.8422    0.8860    0.8635       500
+           D     0.8064    0.8080    0.8072       500
+           E     0.8283    0.8300    0.8292       500
+           F     0.8241    0.8340    0.8290       500
+           G     0.6961    0.6460    0.6701       500
+           H     0.8019    0.8340    0.8176       500
+           I     0.6667    0.6960    0.6810       500
+           J     0.8700    0.8300    0.8495       500
+           K     0.8913    0.9020    0.8966       500
+           L     0.7016    0.7100    0.7058       500
+           M     0.8613    0.8820    0.8715       500
+           N     0.7489    0.7040    0.7258       500
+           O     0.8760    0.9180    0.8965       500
+           P     0.9012    0.9120    0.9066       500
+           Q     0.6958    0.7000    0.6979       500
+           R     0.8201    0.7840    0.8016       500
+           S     0.9333    0.9240    0.9286       500
+           T     0.8344    0.8160    0.8251       500
+           U     0.8333    0.8700    0.8513       500
+           V     0.8723    0.8740    0.8731       500
+           W     0.8705    0.8740    0.8723       500
+           X     0.9286    0.8840    0.9057       500
+           Y     0.9067    0.8360    0.8699       500
+           Z     0.9668    0.9320    0.9491       500
+
+    accuracy                         0.8245     13000
+   macro avg     0.8254    0.8245    0.8246     13000
+weighted avg     0.8254    0.8245    0.8246     13000
+
+Generating Confusion Matrix plot...
+Confusion Matrix plot saved as 'confusion_matrix_loocv_belajar.png'
