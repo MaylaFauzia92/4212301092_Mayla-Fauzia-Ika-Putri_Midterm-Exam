@@ -9,11 +9,10 @@ from sklearn.model_selection import LeaveOneOut, cross_val_predict
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 
-# --- Konfigurasi ---
-# Sesuaikan path ini
+
 FILE_PATH = r"C:\Users\ABC\Downloads\archive (4)\emnist-letters-train.csv" 
 
-# Jumlah sample sesuai soal (500 per kelas × 26 = 13.000)
+
 SAMPLES_PER_CLASS = 500 
 NUM_CLASSES = 26
 TOTAL_SAMPLES = NUM_CLASSES * SAMPLES_PER_CLASS
@@ -26,7 +25,7 @@ CPB = (2, 2)
 SVM_KERNEL = 'linear'
 SVM_C = 1.0
 
-# Fungsi ini sudah lengkap dari kode aslinya
+
 def fix_orientation(img):
     """Fixes the EMNIST image orientation from the CSV format."""
     img_fixed = np.fliplr(img.T)
@@ -42,14 +41,14 @@ except FileNotFoundError:
     exit()
 
 
-# --- Pisahkan label dan gambar ---
+
 labels_full = None
 images_flat = None
 
-# tuliskan script anda disini
+
 labels_full = data_frame.iloc[:, 0].values
 images_flat = data_frame.iloc[:, 1:].values.astype('uint8')
-# akhir script
+
 
 images_raw = images_flat.reshape(-1, 28, 28)
 images_full = np.array([fix_orientation(img) for img in images_raw])
@@ -64,9 +63,9 @@ print(f"Taking {SAMPLES_PER_CLASS} samples per class...")
 for i in range(1, NUM_CLASSES + 1):
     class_indices = np.where(labels_full == i)[0]
     
-    # tuliskan script anda disini
+    
     random_indices = np.random.choice(class_indices, SAMPLES_PER_CLASS, replace=False)
-    # akhir script
+   
     
     sampled_images.append(images_full[random_indices])
     sampled_labels.append(labels_full[random_indices])
@@ -82,9 +81,9 @@ start_time = time.time()
 
 print("Processing images for HOG feature extraction...")
 for image in X_data:
-    # tuliskan script anda disini
+    
     features = hog(image, pixels_per_cell=PPC, cells_per_block=CPB, visualize=False, feature_vector=True)
-    # akhir script
+
     hog_features.append(features)
 
 X_features = np.array(hog_features)
@@ -95,23 +94,22 @@ print(f"HOG feature dataset shape : {X_features.shape}\n")
 
 print("--- Model Evaluation with LOOCV ---")
 
-# tuliskan script anda disini
+
 model = SVC(kernel=SVM_KERNEL, C=SVM_C)
-# akhir script
+
 print(f"SVM model prepared with kernel ='{SVM_KERNEL}' and C ={SVM_C}")
 
-# tuliskan script anda disini
+
 loo = LeaveOneOut()
-# akhir script
 print(f"Validation method: Leave-One-Out (will run {TOTAL_SAMPLES} iterations).\n")
 
 print("===============================================================")
 print("STARTING LOOCV EVALUATION.....)")
 start_cv_time = time.time()
 
-# tuliskan script anda disini
+
 y_pred = cross_val_predict(model, X_features, y_data, cv=loo, n_jobs=-1)
-# akhir script
+
 
 end_cv_time = time.time()
 total_minutes = (end_cv_time - start_cv_time) / 60
@@ -119,25 +117,24 @@ print(f"\nLOOCV evaluation finished in {total_minutes:.2f} minutes.\n")
 
 print("--- Display Performance Results ---")
 
-# tuliskan script anda disini
+
 accuracy = accuracy_score(y_data, y_pred)
-# akhir script
 print(f"Accuracy: {accuracy * 100:.4f}%\n")
 
 print("Classification Report (Precision, Recall, F1-Score):")
 report_labels = list(range(1, NUM_CLASSES + 1))
 target_names = [chr(ord('A') + i - 1) for i in report_labels]
 
-# tuliskan script anda disini
+
 report = classification_report(y_data, y_pred, labels=report_labels, target_names=target_names, digits=4)
-# akhir script
+
 print(report)
 
 print("Generating Confusion Matrix plot...")
 
-# tuliskan script anda disini
+
 cm = confusion_matrix(y_data, y_pred, labels=report_labels)
-# akhir script
+
 
 plt.figure(figsize=(18, 15))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=target_names, yticklabels=target_names)
@@ -148,4 +145,5 @@ plt.tight_layout()
 
 plt.savefig('confusion_matrix_loocv_belajar.png')
 print("Confusion Matrix plot saved as 'confusion_matrix_loocv_belajar.png'")
+
 plt.show()
